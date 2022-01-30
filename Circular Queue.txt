@@ -1,0 +1,118 @@
+#include<stdio.h>
+#include<stdlib.h>
+#define max 6
+
+typedef struct queue
+{
+    int rear,front;
+    int a[max];
+}queue;
+
+void create_queue(queue*q)
+{
+    q->rear=q->front=-1;
+}
+
+void push(queue*q,int value)
+{
+    if((q->rear+1)%max==q->front)
+    {
+        printf("\nQueue is Full\n");
+        
+    }
+    else
+    {
+        if(q->rear==-1&&q->front==-1)
+        {
+             q->rear=q->front=0;
+             q->a[q->rear]=value;
+        }
+        else{
+            q->rear=(q->rear+1)%max;
+            q->a[q->rear]=value;
+            
+        }
+    }
+}
+
+int pop(queue*q)
+{
+    int store;
+    if(q->rear==-1&&q->front==-1)
+    {
+        printf("\nQueue is Empty\n");
+        return 0;
+    }
+    else
+    {
+        store=q->a[q->front];
+        q->front=(q->front+1)%max;
+        return store;
+    }
+    
+}
+void display(queue*q)
+{   int i;
+    if(q->rear==-1 && q->front==-1)
+    {
+        printf("\nQueue is Empty\n");
+    }
+    else{ 
+        if(q->front<=q->rear)
+         {
+             for(i=q->front;i<=q->rear;i++)
+             {
+             printf("%d\t",q->a[i]);
+         }
+         }
+         else{
+             for(i=q->front;i<max-1;i++)
+             {
+                 printf("%d\t",q->a[i]);
+             }
+             for(i=0;i<=q->rear;i++)
+             { 
+                 printf("%d\t",q->a[i]);
+             }
+         }
+        }
+    }
+
+int main()
+{    queue q;
+    int value,y,choice;
+    create_queue(&q);
+    while(1)
+    {
+        printf("\nEnter=\n1 For PUSH\n2 For POP\n3 For Display\n4 For Exit\n");
+        scanf("%d",&choice);
+        switch(choice)
+        {
+        case 1:
+        
+            printf("\nEnter value u want to insert\n");
+            scanf("%d",&value);
+            push(&q,value);
+            break;
+             
+        case 2:
+        
+            y=pop(&q);
+            printf("\nDeleted Item = %d \n",y);
+            break; 
+        
+        
+        case 3:
+        
+            display(&q);
+            break;
+            
+        case 4:
+        
+            exit(0);
+            
+    }
+    
+   
+    }
+}
